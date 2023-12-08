@@ -1,0 +1,73 @@
+{
+"variables":
+{
+	"name": "vbox-debian-arm64-12.2.0",
+	"debian_version": "12.2.0",
+	"build_name": "debian-arm64-12.2.0",
+	"cpu_cores_build": "1",
+	"memory_build": "1024",
+	"disk_size": "6144",
+	"headless": "false",
+	"iso_url": "https://cdimage.debian.org/cdimage/release/{{user `debian_version`}}/arm64/iso-cd/debian-{{user `debian_version`}}-arm64-netinst.iso",
+	"sha512": "f8611558da675f73e5e7698628627b38ec031c0c84b435107fe27b8f65965b98451f806d1de7eb55dcccc7f4a554d3a428f046c0fcbbef64195569d7bfd76050",
+	"ssh_username": "vagrant",
+	"ssh_password": "vagrant",
+	"ssh_port": "22",
+	"hostname": "debian-12",
+	"domain": "local.domain",
+	"lang": "us",
+	"langutf8": "en_US.UTF-8"
+},
+"builders":
+[{
+	"type": "vmware-iso",
+	"name": "vmware-{{ user `build_name` }}",
+	"vm_name": "{{ user `build_name` }}-vmware",
+	"guest_os_type": "arm-debian12-64",
+	"version": "20",
+	"disk_adapter_type": "sata",
+	"network_adapter_type": "e1000e",
+	"headless": "{{user `headless`}}",
+	"http_directory": "ui-input.http",
+	"vmx_data":
+	{
+		"svga.autodetect": "true",
+		"usb_xhci.present": "true",
+		"cpuid.coresPerSocket": "1",
+		"ethernet0.pcislotnumber": "32"
+	},
+	"disk_size": "{{user `disk_size`}}",
+	"iso_checksum": "sha512:{{user `sha512`}}",
+	"iso_url": "{{user `iso_url`}}",
+	"ssh_username": "{{user `ssh_password`}}",
+	"ssh_password": "{{user `ssh_username`}}",
+	"ssh_wait_timeout": "20m",
+	"ssh_port": "{{user `ssh_port`}}",
+	"boot_wait": "5s",
+	"boot_command":
+	[
+		"<wait><up>e<wait><down><down><down><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><right><wait>install <wait> preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/pressed_debian12-bookworm.cfg <wait>debian-installer={{user `langutf8`}} <wait>auto <wait>locale=en_US.UTF-8 <wait>kbd-chooser/method={{user `lang`}} <wait>keyboard-configuration/xkb-keymap={{user `lang`}} <wait>netcfg/get_hostname={{user `hostname`}} <wait>netcfg/get_domain={{ user `domain` }} <wait>fb=false <wait>debconf/frontend=noninteractive <wait>console-setup/ask_detect=false <wait>console-keymaps-at/keymap={{user `lang`}} <wait>grub-installer/bootdev=/dev/sda <wait><f10><wait>"
+	],
+	"shutdown_command": "echo 'vagrant' | sudo -S poweroff"
+}],
+"provisioners":
+[{
+	"type": "shell",
+	"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+	"scripts":
+	[
+		"os-scripts.ud/1.sshd.sh",
+		"os-scripts.ud/2.sudoers.sh",
+		"os-scripts.ud/3.install_common_tools.sh",
+		"os-scripts.ud/4.vagrant.sh",
+		"os-scripts.ud/5.cleanup.sh"
+	]
+}],
+"post-processors":
+[{
+	"type": "vagrant",
+	"output": "{{.BuildName}}.box",
+	"compression_level": "9",
+	"keep_input_artifact": false
+}]
+}
