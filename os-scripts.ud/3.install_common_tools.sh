@@ -101,6 +101,9 @@ printf 'BASH: defaults in (.bashrc) profile set.\n' ;
 #printf "# // UNSTABLE sources (for latest apps 2.6+):\n${PKG_SRC}\n" > /etc/apt/sources.list.d/unstable.list ;
 #apt-get update > /dev/null 2>&1 ;
 
+# // disable swap
+swapoff /dev/dm-1 ;
+
 # // DO A BIT OF COMPACTION
 set +e ;
 sudo dd if=/dev/zero of=/EMPTY bs=1M
