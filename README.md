@@ -5,7 +5,7 @@ This repo contains a `packer` template for building an ARM64 Vagrant Base Box of
 You can also find these boxes on Vagrant cloud:
  - [vagrantup.com/aphorise/boxes/debian12-arm64](https://app.vagrantup.com/aphorise/boxes/debian12-arm64)
 
-For x86-64 / AMD64 builds see: [github.com/aphorise/hashicorp.packer-debian10-buster](https://github.com/aphorise/hashicorp.packer-debian10-buster).
+For x86-64 / AMD64 builds see: [github.com/aphorise/hashicorp.packer-debian12-bookworm](https://github.com/aphorise/hashicorp.packer-debian12-bookworm).
 
 ### Prerequisites
 Ensure that you already have the following applications installed & working:
