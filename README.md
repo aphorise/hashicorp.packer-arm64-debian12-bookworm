@@ -1,6 +1,6 @@
 
 # HashiCrop `packer` Template of Arm64 Debian 12 (bookworm) 
-This repo contains a `packer` template for building an ARM64 Vagrant Base Box of [Debian 12.2.2](https://www.debian.org/releases/bookworm/) (aka Bookworm) that was built on :apple: MacOS & M3 (aka Apple Silicon).
+This repo contains a `packer` template for building an ARM64 Vagrant Base Box of [Debian 12.5.0](https://www.debian.org/releases/bookworm/) (aka Bookworm) that was built on :apple: MacOS & M3 (aka Apple Silicon).
 
 You can also find these boxes on Vagrant cloud:
  - [vagrantup.com/aphorise/boxes/debian12-arm64](https://app.vagrantup.com/aphorise/boxes/debian12-arm64)
