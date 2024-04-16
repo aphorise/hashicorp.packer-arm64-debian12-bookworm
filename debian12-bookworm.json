@@ -1,15 +1,15 @@
 {
 "variables":
 {
-	"name": "vbox-debian-arm64-12.2.0",
-	"debian_version": "12.2.0",
-	"build_name": "debian-arm64-12.2.0",
+	"name": "vbox-debian-arm64-12.5.0",
+	"debian_version": "12.5.0",
+	"build_name": "debian-arm64-12.5.0",
 	"cpu_cores_build": "1",
 	"memory_build": "1024",
 	"disk_size": "6144",
 	"headless": "false",
 	"iso_url": "https://cdimage.debian.org/cdimage/release/{{user `debian_version`}}/arm64/iso-cd/debian-{{user `debian_version`}}-arm64-netinst.iso",
-	"sha512": "f8611558da675f73e5e7698628627b38ec031c0c84b435107fe27b8f65965b98451f806d1de7eb55dcccc7f4a554d3a428f046c0fcbbef64195569d7bfd76050",
+	"sha512": "14c2ca243ee7f6e447cc4466296d974ee36645c06d72043236c3fbea78f1948d3af88d65139105a475288f270e4b636e6885143d01bdf69462620d1825e470ae",
 	"ssh_username": "vagrant",
 	"ssh_password": "vagrant",
 	"ssh_port": "22",

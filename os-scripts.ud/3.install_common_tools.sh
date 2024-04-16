@@ -23,7 +23,7 @@ UNAME="$(uname -ar)" ;
 # PKG_UBUNTU='realpath' ; # if [[ ${UNAME} == *"Ubuntu"* ]] ; then sudo apt-get update > /dev/null && sudo apt-get install -yq ${PKG_UBUNTU} > /dev/null ; fi ;
 # // common utils & build tools: make, cpp, etc.
 PKGS="locales locales-all nfs-common rsync git hdparm policykit-1 unzip curl htop screen tmux jq" ;
-PKGS="${PKGS} wget build-essential libssh-dev bc mtr glances fio sysstat" ;
+PKGS="${PKGS} wget build-essential libssh-dev bc mtr glances fio sysstat vim ed" ;
 PKGS="${PKGS} linux-perf net-tools ack tcpdump nmap iperf iperf3 ipcalc" ;
 PKGS="${PKGS} pydf cmatrix bmon socat btop iotop iftop atop mc git lshw" ;  # inxi pydf cmatrix bmon
 PKGS="${PKGS} nmon iptraf nload opensc softhsm2 tree asciinema" ;
@@ -39,10 +39,11 @@ sudo sh -c 'echo "" > /etc/motd'
 #bash -c "$(wget -qO - 'https://shlink.makedeb.org/install')" 2>&1>/dev/null
 #git clone 'https://mpr.makedeb.org/mprocs' 2&1>/dev/null && cd mprocs && makedeb -si --no-confirm 2>&1>/dev/null
 
-BANDWHICH_VERSION=$(curl -qs "https://api.github.com/repos/imsnif/bandwhich/releases/latest" | grep -Po '"tag_name": ".*' | cut -d'"' -f 4 | cut -d'v' -f2)
-curl -sqLo bandwhich.tar.gz "https://github.com/imsnif/bandwhich/releases/latest/download/bandwhich-v${BANDWHICH_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-sudo tar xf bandwhich.tar.gz -C /usr/local/bin 2>&1 > /dev/null
-rm -rf bandwhich.tar.gz
+# // NOT AVAILABLE ON ARM64 (not without building).
+#BANDWHICH_VERSION=$(curl -qs "https://api.github.com/repos/imsnif/bandwhich/releases/latest" | grep -Po '"tag_name": ".*' | cut -d'"' -f 4 | cut -d'v' -f2)
+#curl -sqLo bandwhich.tar.gz "https://github.com/imsnif/bandwhich/releases/latest/download/bandwhich-v${BANDWHICH_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+#sudo tar xf bandwhich.tar.gz -C /usr/local/bin 2>&1 > /dev/null
+#rm -rf bandwhich.tar.gz
 
 # // .bashrc profile alias and history settings.
 sBASH_DEFAULT='''
@@ -107,6 +108,5 @@ swapoff /dev/dm-1 ;
 # // DO A BIT OF COMPACTION
 set +e ;
 sudo dd if=/dev/zero of=/EMPTY bs=1M
-echo ">>>>> $?"
 set -e ;
 sudo rm -rf /EMPTY

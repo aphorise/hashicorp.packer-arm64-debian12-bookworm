@@ -22,6 +22,9 @@ unset HISTFILE ;
 systemctl stop systemd-random-seed ;
 rm -f /var/lib/systemd/random-seed ;
 
+# // remove temporary files
+if [[ -f /home/vagrant/.sudo_as_admin_successful ]] ; then rm -rf /home/vagrant/.sudo_as_admin_successful ; fi ;
+
 # clean packages.
 apt-get -yq --purge remove linux-headers-$(uname -r) build-essential ;
 apt-get -yq --purge autoremove ;
